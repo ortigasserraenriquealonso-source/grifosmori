@@ -1,0 +1,195 @@
+{
+  "_nota": "Catálogo de premios. Es lo único de la web que se edita a mano: cuando el grifo cambie un premio o un puntaje, se toca este archivo y nada más. La equivalencia es 1 galón = 1 punto.",
+  "_pendiente_de_confirmar": "Los puntajes de GASOLINA salen de una pieza de Instagram cuya columna de puntajes está desalineada respecto a los productos (el producto 'Cargador de celular - enchufe' ocupa dos renglones y corre toda la columna). Se usó el único mapeo que consume los 21 puntajes en los 21 productos. Confirmarlos con la estación ANTES de publicar. Los de PETRÓLEO están alineados y no tienen esta duda.",
+  "equivalencia": "1 galón = 1 punto",
+  "catalogos": [
+    {
+      "id": "petroleo",
+      "nombre": "Petróleo",
+      "descripcion": "Premios que se canjean con los puntos que acumulas cargando diésel.",
+      "confirmado": true,
+      "premios": [
+        {
+          "nombre": "Cargador de celular para carro",
+          "puntos": 120
+        },
+        {
+          "nombre": "Linterna",
+          "puntos": 150
+        },
+        {
+          "nombre": "Toalla",
+          "puntos": 200
+        },
+        {
+          "nombre": "Frazada bandera",
+          "puntos": 220
+        },
+        {
+          "nombre": "Sandalias capellanas",
+          "puntos": 250
+        },
+        {
+          "nombre": "Maletín de viaje",
+          "puntos": 300
+        },
+        {
+          "nombre": "Platos, set de 12",
+          "puntos": 330
+        },
+        {
+          "nombre": "Edredón",
+          "puntos": 430
+        },
+        {
+          "nombre": "Sábana Vanex 2.5 plazas",
+          "puntos": 500
+        },
+        {
+          "nombre": "Cafetera",
+          "puntos": 500
+        },
+        {
+          "nombre": "Plancha Oster",
+          "puntos": 590
+        },
+        {
+          "nombre": "Hervidor Oster",
+          "puntos": 630
+        },
+        {
+          "nombre": "Pantalón de trabajo",
+          "puntos": 1000
+        },
+        {
+          "nombre": "Ventilador",
+          "puntos": 1300
+        },
+        {
+          "nombre": "Licuadora Oster",
+          "puntos": 1500
+        },
+        {
+          "nombre": "Parrilla de mesa eléctrica",
+          "puntos": 1500
+        },
+        {
+          "nombre": "Olla arrocera Oster",
+          "puntos": 2000
+        },
+        {
+          "nombre": "Microondas",
+          "puntos": 3000
+        },
+        {
+          "nombre": "Minicomponente",
+          "puntos": 3000
+        },
+        {
+          "nombre": "Tablet",
+          "puntos": 4000
+        },
+        {
+          "nombre": "Frigobar Electrolux 47 L",
+          "puntos": 4500
+        },
+        {
+          "nombre": "Celular gama media",
+          "puntos": 6000
+        }
+      ]
+    },
+    {
+      "id": "gasolina",
+      "nombre": "Gasolina",
+      "descripcion": "Premios que se canjean con los puntos que acumulas cargando gasohol.",
+      "confirmado": false,
+      "premios": [
+        {
+          "nombre": "Linterna",
+          "puntos": 40
+        },
+        {
+          "nombre": "Toalla playera",
+          "puntos": 40
+        },
+        {
+          "nombre": "Jarra de vidrio 2 L",
+          "puntos": 52
+        },
+        {
+          "nombre": "Set de tápers de vidrio",
+          "puntos": 60
+        },
+        {
+          "nombre": "Cargador de celular de enchufe",
+          "puntos": 60
+        },
+        {
+          "nombre": "Reloj de mano",
+          "puntos": 60
+        },
+        {
+          "nombre": "Reloj de pared",
+          "puntos": 64
+        },
+        {
+          "nombre": "Sandalias",
+          "puntos": 68
+        },
+        {
+          "nombre": "Audífonos con cable",
+          "puntos": 74
+        },
+        {
+          "nombre": "Manta polar",
+          "puntos": 80
+        },
+        {
+          "nombre": "Mantel de mesa",
+          "puntos": 80
+        },
+        {
+          "nombre": "Set de jarra con vasos",
+          "puntos": 80
+        },
+        {
+          "nombre": "Mochila morral",
+          "puntos": 80
+        },
+        {
+          "nombre": "Parlante pequeño",
+          "puntos": 100
+        },
+        {
+          "nombre": "Audífonos Bluetooth",
+          "puntos": 120
+        },
+        {
+          "nombre": "Sábana Nancy 2.5 plazas",
+          "puntos": 128
+        },
+        {
+          "nombre": "Hervidor 1.8 L",
+          "puntos": 140
+        },
+        {
+          "nombre": "Plancha Imaco",
+          "puntos": 200
+        },
+        {
+          "nombre": "Parlante grande",
+          "puntos": 200
+        },
+        {
+          "nombre": "Licuadora Imaco",
+          "puntos": 400
+        },
+        {
+          "nombre": "Olla arrocera Imaco",
+          "puntos": 520
+        }
+      ]
+    }
+  ]
+}

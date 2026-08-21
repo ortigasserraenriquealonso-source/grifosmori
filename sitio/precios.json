@@ -1,0 +1,32 @@
+{
+  "actualizado_utc": "2026-08-20T17:05:59+00:00",
+  "actualizado_lima": "20/08/2026 12:05",
+  "precios_desde": "2026-08-20T16:58:58+00:00",
+  "precios_desde_lima": "20/08/2026",
+  "cambio_en_esta_lectura": false,
+  "fuente": "Facilito — Osinergmin",
+  "fuente_url": "https://www.facilito.gob.pe",
+  "codigo_osinergmin": "7675",
+  "establecimiento": "GRIFOS MORI S.A.C.",
+  "direccion": "CARRETERA PANAMERICANA NORTE KM. 783 - MOCCE (A LA ALTURA DEL OVALO BAYOVAR)",
+  "combustibles": [
+    {
+      "producto": "Diésel B5 S-50 UV",
+      "oficial": "Diesel B5 S-50 UV",
+      "precio": 23.29,
+      "estrella": true
+    },
+    {
+      "producto": "Gasohol Premium",
+      "oficial": "GASOHOL PREMIUM",
+      "precio": 21.7,
+      "estrella": false
+    },
+    {
+      "producto": "Gasohol Regular",
+      "oficial": "GASOHOL REGULAR",
+      "precio": 20.6,
+      "estrella": false
+    }
+  ]
+}

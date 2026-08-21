@@ -1,0 +1,844 @@
+/* ==========================================================================
+   Grifos Mori — hoja de estilos única
+   Colores y tipografías: ver marca/MARCA.md (todo sale del manual del cliente)
+   ========================================================================== */
+
+:root {
+  /* Marca — verificados contra el logo vectorial y colorimetria.pdf */
+  --navy:        #1E2E55;
+  --navy-800:    #17244333;      /* solo para bordes y sombras sobre claro */
+  --azul:        #324985;
+  --amarillo:    #F2BA24;
+  --amarillo-osc:#D9A310;      /* solo como FONDO (hover de botón) */
+  --amarillo-texto:#8A6800;    /* el amarillo cuando es TEXTO o ícono sobre claro: 5.17:1 */
+  --gris-marca:  #575756;
+
+  /* Neutros derivados */
+  --blanco:      #FFFFFF;
+  --hueso:       #F6F7F9;
+  --linea:       #E3E6ED;
+  --texto:       #1B2233;
+  --texto-suave: #5A6478;
+
+  /* Tipografías. Si el cliente compra la licencia webfont de Aloevera y
+     Agency, se agregan acá delante y el resto de la hoja no se toca. */
+  --fuente-titulo: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --fuente-dato:   "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  --radio:      14px;
+  --radio-sm:   9px;
+  --sombra:     0 1px 2px rgba(23,36,67,.06), 0 8px 24px rgba(23,36,67,.08);
+  --sombra-alta:0 2px 4px rgba(23,36,67,.08), 0 18px 44px rgba(23,36,67,.14);
+  --ancho:      1160px;
+  --transicion: 180ms cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Varias reglas de esta hoja fijan `display`, y eso pisa el `hidden` del
+   navegador. Sin esto, la etiqueta "Nuestro fuerte" sale en los tres precios. */
+[hidden] { display: none !important; }
+
+html {
+  scroll-behavior: smooth;
+  /* La cabecera es fija y mide 74 px: sin esto, todo salto a un ancla deja el
+     inicio de la sección debajo de la barra. */
+  scroll-padding-top: 92px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--texto);
+  background: var(--blanco);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+h1, h2, h3 { line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5em; font-weight: 700; }
+h1 { font-size: clamp(1.95rem, 5.4vw, 3.7rem); font-weight: 800; }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
+h3 { font-size: 1.18rem; }
+p  { margin: 0 0 1em; }
+
+.contenedor { width: min(100% - 2.5rem, var(--ancho)); margin-inline: auto; }
+
+.seccion { padding: clamp(3.5rem, 8vw, 6.5rem) 0; position: relative; }
+.seccion--hueso { background: var(--hueso); }
+.seccion--navy  { background: var(--navy); color: #EAEEF7; }
+.seccion--navy h2 { color: var(--blanco); }
+
+.rotulo {
+  font-family: var(--fuente-dato);
+  font-size: .92rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--amarillo-texto); margin-bottom: .6rem;
+}
+.seccion--navy .rotulo { color: var(--amarillo); }
+
+.bajada { font-size: 1.06rem; color: var(--texto-suave); max-width: 62ch; }
+.seccion--navy .bajada { color: #B9C3D8; }
+
+/* Foco visible en todo lo interactivo. */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 2px;
+  /* Halo claro por fuera: el anillo navy solo no se ve sobre el propio navy,
+     y el amarillo de marca no llega al mínimo de 3:1 sobre los fondos claros
+     (1,78:1 sobre blanco; 1,00:1 sobre un botón amarillo). Con los dos, el
+     foco se distingue sobre cualquier superficie de la página. */
+  box-shadow: 0 0 0 6px rgba(255,255,255,.95);
+  border-radius: 4px;
+}
+.seccion--navy a:focus-visible, .seccion--navy button:focus-visible,
+.seccion--navy input:focus-visible, .hero a:focus-visible,
+.cabecera a:focus-visible, .cabecera button:focus-visible,
+.flota a:focus-visible, .pie a:focus-visible, .wa-flotante:focus-visible {
+  outline-color: var(--amarillo);
+  box-shadow: 0 0 0 6px rgba(23,36,67,.9);
+}
+
+.solo-lectores {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* --- Botones -------------------------------------------------------------- */
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .92rem 1.7rem;
+  font-family: var(--fuente-titulo); font-size: 1rem; font-weight: 600;
+  text-decoration: none; border: 2px solid transparent; border-radius: 999px;
+  cursor: pointer; transition: transform var(--transicion), background var(--transicion),
+                               box-shadow var(--transicion), border-color var(--transicion);
+}
+.boton:active { transform: translateY(0); }
+.boton svg { width: 1.15em; height: 1.15em; flex: none; }
+
+.boton--wa      { background: var(--amarillo); color: var(--navy); box-shadow: var(--sombra); }
+.boton--linea   { background: transparent; color: var(--blanco); border-color: rgba(255,255,255,.45); }
+.boton--navy    { background: var(--navy); color: var(--blanco); box-shadow: var(--sombra); }
+
+/* --- Cabecera ------------------------------------------------------------- */
+.cabecera {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(30,46,85,.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.cabecera__fila {
+  display: flex; align-items: center; gap: 1.5rem;
+  min-height: 74px;
+}
+.cabecera__logo { flex: none; }
+.cabecera__logo img { height: 42px; width: auto; }
+
+.nav { margin-left: auto; display: flex; gap: 1.6rem; }
+.nav a {
+  color: #D6DDEC; text-decoration: none; font-size: .96rem; font-weight: 500;
+  padding: .3rem 0; border-bottom: 2px solid transparent;
+  transition: color var(--transicion), border-color var(--transicion);
+}
+.cabecera .boton { padding: .62rem 1.25rem; font-size: .93rem; flex: none; }
+
+.menu-btn {
+  display: none; margin-left: auto;
+  background: none; border: 0; color: var(--blanco); cursor: pointer;
+  padding: .5rem; line-height: 0;
+}
+.menu-btn svg { width: 26px; height: 26px; }
+
+@media (max-width: 940px) {
+  .menu-btn { display: block; }
+  .nav {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0; margin: 0;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    max-height: 0; overflow: hidden;
+    visibility: hidden;
+    transition: max-height var(--transicion), visibility 0s linear var(--transicion);
+  }
+  .nav[data-abierto="si"] {
+    max-height: 420px;
+    visibility: visible;
+    transition: max-height var(--transicion), visibility 0s;
+  }
+  .nav a { padding: .95rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .cabecera__fila > .boton { display: none; }
+}
+
+/* --- Hero ----------------------------------------------------------------- */
+.hero {
+  position: relative; background: var(--navy); color: var(--blanco);
+  padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(3.5rem, 7vw, 5rem);
+  overflow: hidden;
+}
+/* La cuña amarilla del logo, repetida como recurso gráfico de marca. */
+.hero::before {
+  content: ""; position: absolute; top: -20%; right: -14%;
+  width: 62%; height: 150%;
+  background: var(--azul);
+  transform: skewX(-19deg);
+  opacity: .5;
+}
+.hero .contenedor { position: relative; z-index: 1; }
+
+.hero__grid {
+  display: grid; gap: clamp(2.2rem, 5vw, 3.5rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+@media (min-width: 980px) { .hero__grid { grid-template-columns: 1.05fr .95fr; } }
+
+.hero h1 { color: var(--blanco); margin-bottom: .35em; }
+.hero h1 em { font-style: normal; color: var(--amarillo); }
+.hero__bajada { font-size: 1.14rem; color: #C3CCE0; max-width: 46ch; margin-bottom: 2rem; }
+@media (max-width: 620px) {
+  .hero { padding-top: 2rem; }
+  .hero__sello { margin-bottom: 1rem; }
+  .hero__bajada { font-size: 1.02rem; margin-bottom: 1.5rem; }
+  .hero__botones .boton { width: 100%; }
+}
+.hero__botones { display: flex; flex-wrap: wrap; gap: .85rem; }
+
+.hero__sello {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-family: var(--fuente-dato); font-weight: 600;
+  font-size: .93rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--amarillo);
+  border: 1px solid rgba(242,186,36,.4); border-radius: 999px;
+  padding: .35rem 1rem; margin-bottom: 1.4rem;
+}
+.hero__sello::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--amarillo);
+}
+
+/* --- Panel de precios ----------------------------------------------------- */
+.precios {
+  background: var(--blanco); color: var(--texto);
+  border-radius: 20px; padding: 1.6rem;
+  box-shadow: var(--sombra-alta);
+}
+.precios__cab {
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: .6rem; flex-wrap: wrap; margin-bottom: 1.1rem;
+}
+.precios__cab h2 { font-size: 1.22rem; margin: 0; }
+.precios__lista { display: grid; gap: .7rem; }
+
+.precio {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .95rem 1.15rem;
+  background: var(--hueso); border: 1px solid var(--linea); border-radius: var(--radio);
+}
+.precio--estrella {
+  background: linear-gradient(100deg, #FFF7E2, #FFFDF6);
+  border-color: rgba(242,186,36,.55);
+}
+.precio__nombre { font-weight: 600; font-size: 1.02rem; }
+.precio__etiqueta {
+  display: block; font-family: var(--fuente-dato); font-weight: 700;
+  font-size: .74rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--amarillo-texto); margin-bottom: .1rem;
+}
+.precio__monto {
+  font-family: var(--fuente-dato); font-weight: 700;
+  font-size: clamp(1.7rem, 4.4vw, 2.15rem); line-height: 1;
+  color: var(--navy); white-space: nowrap;
+}
+.precio__monto small { font-size: .48em; font-weight: 600; color: var(--texto-suave); }
+
+/* Sin texto: es solo el punto de color junto al título. Lo que significa vive
+   en su `title` y en su `aria-label`, así que el dato no se pierde. */
+.frescura { display: flex; align-items: center; font-size: 0; cursor: help; }
+.frescura::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: #34A853; flex: none;
+}
+.frescura[data-estado="viejo"]::before { background: #E8A33D; }
+
+.precios__nota {
+  margin: 1.1rem 0 0; font-size: .8rem; line-height: 1.55; color: var(--texto-suave);
+}
+.precios__nota a { color: var(--azul); }
+
+.precios__caido {
+  padding: 1.4rem; text-align: center;
+  background: var(--hueso); border: 1px dashed var(--linea); border-radius: var(--radio);
+}
+.precios__caido p { margin-bottom: .9rem; font-size: .97rem; }
+
+/* --- Los tres caminos ----------------------------------------------------- */
+.caminos { display: grid; gap: 1.2rem; grid-template-columns: 1fr; margin-top: 2.6rem; }
+@media (min-width: 760px) { .caminos { grid-template-columns: repeat(3, 1fr); } }
+
+.camino {
+  padding: 1.9rem 1.6rem;
+  background: var(--blanco); border: 1px solid var(--linea);
+  border-radius: var(--radio); box-shadow: var(--sombra);
+  border-top: 4px solid var(--amarillo);
+}
+.camino h3 { margin-bottom: .45rem; }
+.camino p  { margin: 0; font-size: .97rem; color: var(--texto-suave); }
+.camino__num {
+  font-family: var(--fuente-dato); font-weight: 700; font-size: 2.4rem;
+  line-height: 1; color: var(--amarillo); display: block; margin-bottom: .5rem;
+}
+
+/* --- Servicios ------------------------------------------------------------ */
+.servicios { display: grid; gap: 1.2rem; grid-template-columns: 1fr; margin-top: 2.8rem; }
+@media (min-width: 720px)  { .servicios { grid-template-columns: repeat(2, 1fr); } }
+
+.servicio {
+  display: flex; flex-direction: column;
+  padding: 2rem 1.8rem;
+  background: var(--blanco); border: 1px solid var(--linea);
+  border-radius: var(--radio); box-shadow: var(--sombra);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+.servicio__icono {
+  width: 46px; height: 46px; margin-bottom: 1.1rem;
+  display: grid; place-items: center;
+  background: var(--navy); border-radius: 12px; color: var(--amarillo);
+}
+.servicio__icono svg { width: 24px; height: 24px; }
+.servicio p { color: var(--texto-suave); font-size: .98rem; flex: 1; }
+.servicio .enlace-wa {
+  align-self: flex-start; margin-top: .4rem;
+  font-weight: 600; font-size: .95rem; color: var(--azul);
+  text-decoration: none; border-bottom: 2px solid rgba(50,73,133,.28);
+  padding-bottom: 2px;
+}
+
+/* --- Puntos --------------------------------------------------------------- */
+.regla-puntos {
+  display: inline-flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+  margin: 1.6rem 0 0;
+  padding: .9rem 1.5rem;
+  background: var(--amarillo); color: var(--navy);
+  border-radius: 999px; font-weight: 700;
+  font-family: var(--fuente-dato); font-size: 1.3rem; letter-spacing: .03em;
+}
+
+.simulador {
+  margin-top: 2.6rem; padding: 1.7rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.16); border-radius: var(--radio);
+}
+.simulador__campo { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.simulador label { font-weight: 600; color: var(--blanco); }
+.simulador input {
+  width: 130px; padding: .65rem .9rem;
+  font-family: var(--fuente-dato); font-size: 1.3rem; font-weight: 700;
+  color: var(--navy); background: var(--blanco);
+  border: 2px solid transparent; border-radius: var(--radio-sm);
+}
+.simulador__unidad { color: #B9C3D8; font-size: .95rem; }
+.simulador__salida { margin: 1.1rem 0 0; font-size: 1.02rem; color: #DCE3F2; }
+.simulador__salida strong { color: var(--amarillo); }
+
+.tabs { display: flex; gap: .5rem; margin: 2.4rem 0 1.6rem; flex-wrap: wrap; }
+.tab {
+  padding: .62rem 1.4rem;
+  font-family: var(--fuente-dato); font-weight: 700; font-size: 1.02rem;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: #B9C3D8; background: transparent; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.42); border-radius: 999px;
+  transition: all var(--transicion);
+}
+.tab[aria-selected="true"] {
+  background: var(--amarillo); color: var(--navy); border-color: var(--amarillo);
+}
+
+.premios {
+  display: grid; gap: .85rem;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+.premio {
+  display: flex; flex-direction: column; justify-content: space-between; gap: .7rem;
+  padding: 1.15rem 1.25rem;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.13); border-radius: var(--radio);
+  transition: border-color var(--transicion), background var(--transicion);
+}
+.premio__nombre { font-weight: 600; font-size: 1rem; color: var(--blanco); line-height: 1.35; }
+.premio__puntos {
+  font-family: var(--fuente-dato); font-weight: 700; font-size: 1.85rem;
+  line-height: 1; color: var(--amarillo);
+}
+.premio__puntos small {
+  display: block; font-family: var(--fuente-titulo);
+  font-size: .72rem; font-weight: 500; letter-spacing: .04em;
+  color: #9DA9C4; margin-top: .3rem;
+}
+.premio__meta { font-size: .8rem; color: #9DA9C4; margin: 0; }
+/* Sin resaltado de color en la tarjeta: lo que se alcanza pronto ya lo
+   dice el propio texto, y teñir un tercio de la grilla la ensucia. */
+.premio__meta { color: #9DA9C4; }
+
+/* --- Reels ---------------------------------------------------------------- */
+.reels {
+  display: grid; gap: 1.1rem; margin-top: 2.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  /* Con piezas verticales, dejarlas crecer a todo el ancho las vuelve torres
+     de 700 px. Se acota el grupo y el aire sobrante queda a la derecha como
+     margen, no como hueco. El mínimo de 190 px hace que cuatro entren en una
+     sola fila dentro de ese ancho. */
+  max-width: 1000px;
+}
+@media (max-width: 700px) {
+  /* Dos por fila: uno debajo de otro obliga a deslizar cuatro pantallas para
+     ver cuatro videos. En rejilla se abarcan de un vistazo. */
+  .reels { grid-template-columns: 1fr 1fr; gap: .7rem; }
+  .reel figcaption { font-size: .82rem; line-height: 1.3; }
+  .reel__cuenta { font-size: .74rem; }
+  .reel__capa { padding: .7rem; }
+}
+.reel {
+  position: relative; margin: 0; aspect-ratio: 9 / 16;
+  border-radius: var(--radio); overflow: hidden;
+  background: var(--navy); box-shadow: var(--sombra);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+.reel a { display: block; width: 100%; height: 100%; text-decoration: none; }
+.reel img { width: 100%; height: 100%; object-fit: cover; }
+.reel__capa {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.1rem;
+  /* Arranca antes y cierra más opaco: varias portadas son claras y el pie
+     en blanco se perdía sobre ellas. */
+  background: linear-gradient(transparent 34%, rgba(19,29,55,.55) 62%, rgba(19,29,55,.94));
+  color: var(--blanco);
+}
+.reel__play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(242,186,36,.94); color: var(--navy);
+  display: grid; place-items: center;
+}
+.reel__play svg { width: 22px; height: 22px; margin-left: 3px; }
+.reel figcaption { font-size: .92rem; font-weight: 500; line-height: 1.4; }
+.reel__cuenta { font-family: var(--fuente-dato); font-size: .82rem; color: var(--amarillo); letter-spacing: .06em; }
+
+.reels__vacio {
+  grid-column: 1 / -1; padding: 2.4rem;
+  text-align: center; color: #9DA9C4;
+  border: 1px dashed rgba(255,255,255,.22); border-radius: var(--radio);
+}
+
+/* --- Alto consumo --------------------------------------------------------- */
+.flota {
+  display: grid; gap: 2.4rem; align-items: center;
+  grid-template-columns: 1fr;
+  padding: clamp(2rem, 4vw, 3.2rem);
+  background: var(--navy); color: var(--blanco);
+  border-radius: 22px; box-shadow: var(--sombra-alta);
+  position: relative; overflow: hidden;
+}
+.flota::after {
+  content: ""; position: absolute; top: -30%; right: -12%;
+  width: 46%; height: 160%; background: var(--amarillo);
+  transform: skewX(-19deg); opacity: .09;
+}
+.flota > * { position: relative; z-index: 1; }
+@media (min-width: 900px) { .flota { grid-template-columns: 1.15fr .85fr; } }
+.flota h2 { color: var(--blanco); }
+.flota > div:first-child p { color: #C3CCE0; }
+.flota__lista { list-style: none; margin: 0 0 1.8rem; padding: 0; display: grid; gap: .7rem; }
+.flota__lista li { display: flex; gap: .7rem; align-items: flex-start; color: #DCE3F2; font-size: 1rem; }
+.flota__lista svg { width: 20px; height: 20px; flex: none; color: var(--amarillo); margin-top: .22em; }
+
+.tarjeta-contacto {
+  padding: 1.9rem; text-align: center;
+  background: var(--blanco); color: var(--texto);
+  border-radius: 18px;
+}
+.tarjeta-contacto__rol {
+  font-family: var(--fuente-dato); font-size: .85rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--amarillo-texto);
+}
+.tarjeta-contacto__nombre { font-size: 1.5rem; font-weight: 700; margin: .2rem 0 .1rem; }
+.tarjeta-contacto__tel {
+  font-family: var(--fuente-dato); font-size: 1.75rem; font-weight: 700;
+  color: var(--navy); text-decoration: none; display: block; margin-bottom: 1.2rem;
+}
+
+/* --- Ubicación ------------------------------------------------------------ */
+.ubicacion { display: grid; gap: 2rem; grid-template-columns: 1fr; margin-top: 2.6rem; }
+@media (min-width: 900px) { .ubicacion { grid-template-columns: .85fr 1.15fr; } }
+
+.ficha { display: grid; gap: 1.3rem; align-content: start; }
+.ficha__item { display: flex; gap: .9rem; }
+.ficha__item svg { width: 22px; height: 22px; flex: none; color: var(--amarillo-texto); margin-top: .2em; }
+.ficha__item h3 { font-size: 1rem; margin: 0 0 .15rem; }
+.ficha__item p  { margin: 0; color: var(--texto-suave); font-size: .97rem; }
+
+.mapa {
+  border-radius: var(--radio); overflow: hidden;
+  border: 1px solid var(--linea); box-shadow: var(--sombra);
+  min-height: 340px; background: var(--hueso);
+}
+.mapa iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
+
+/* --- Pie ------------------------------------------------------------------ */
+.pie { background: #16223F; color: #96A2BD; padding: 3.2rem 0 2rem; font-size: .93rem; }
+.pie__grid {
+  display: grid; gap: 2rem; grid-template-columns: 1fr;
+  padding-bottom: 2.2rem; border-bottom: 1px solid rgba(255,255,255,.1);
+}
+@media (min-width: 760px) { .pie__grid { grid-template-columns: 1.4fr 1fr 1fr; } }
+.pie img { height: 44px; width: auto; margin-bottom: 1rem; }
+.pie h3 { color: var(--blanco); font-size: .93rem; letter-spacing: .1em; text-transform: uppercase;
+          font-family: var(--fuente-dato); margin-bottom: .9rem; }
+.pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.pie a { color: #96A2BD; text-decoration: none; }
+.pie__legal { padding-top: 1.6rem; font-size: .84rem; line-height: 1.6; }
+
+/* --- WhatsApp flotante ---------------------------------------------------- */
+.wa-flotante {
+  position: fixed; right: 18px; bottom: 18px; z-index: 70;
+  width: 58px; height: 58px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #25D366; color: var(--blanco);
+  box-shadow: 0 6px 22px rgba(0,0,0,.28);
+  transition: transform var(--transicion);
+}
+.wa-flotante { transition: transform var(--transicion), opacity var(--transicion); }
+/* Arranca escondido mientras el hero está a la vista: ahí ya hay un botón de
+   WhatsApp grande, y flotando tapaba el precio del diésel en celular.
+   Sin JavaScript el atributo nunca se pone y el botón se ve siempre. */
+.wa-flotante[data-oculto="si"] { opacity: 0; pointer-events: none; transform: scale(.6); }
+.wa-flotante svg { width: 30px; height: 30px; }
+@media print { .wa-flotante, .cabecera { display: none; } }
+
+/* ==========================================================================
+   SISTEMA DE MOVIMIENTO
+   Mismo esqueleto que la web de Audical, con la identidad de Grifos Mori.
+
+   Regla que gobierna todo lo de abajo: sin JavaScript, `.js` nunca se agrega
+   al <html> y la página se ve ENTERA y QUIETA. Eso no es un modo degradado:
+   es el comportamiento correcto. Las animaciones son un lujo que se suma
+   cuando el navegador puede con ellas, nunca un requisito para leer.
+   ========================================================================== */
+
+@keyframes gm-flota      { from { transform: translate3d(0,0,0) scale(1); }
+                           to   { transform: translate3d(4vw,3vw,0) scale(1.14); } }
+@keyframes gm-avanzar    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes gm-viva       { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes gm-traza      { 0% { opacity:0; transform:scaleX(0); }
+                           26%,44% { opacity:.9; transform:scaleX(1); }
+                           64%,100% { opacity:0; transform:scaleX(1); } }
+@keyframes gm-destello   { 0%,72% { transform: translateX(-140%); }
+                           88%,100% { transform: translateX(140%); } }
+
+/* --- Barra de avance de lectura ------------------------------------------ */
+.avance {
+  position: fixed; inset: 0 auto auto 0;
+  height: 3px; width: 100%; z-index: 80;
+  background: linear-gradient(90deg, var(--azul), var(--amarillo));
+  pointer-events: none;
+  transform: scaleX(0); transform-origin: 0 50%;
+}
+/* Donde el navegador sabe animar con el scroll, lo hace en el compositor y el
+   listener de JavaScript ni se instala. El shorthand `animation` va PRIMERO:
+   si se pone después, pisa a `animation-timeline` y la barra se queda quieta. */
+@supports (animation-timeline: scroll()) {
+  .avance {
+    animation: gm-avanzar;
+    animation-timeline: scroll();
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+}
+
+/* --- Capas de ambiente ---------------------------------------------------- */
+.aura { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.aura i {
+  position: absolute; display: block; border-radius: 50%;
+  filter: blur(70px); opacity: .5;
+  animation: gm-flota 26s ease-in-out infinite alternate;
+}
+.aura i:nth-child(1) { width: 46vw; height: 46vw; left: -12vw; top: -10vh;
+                       background: rgba(50,73,133,.30); animation-duration: 30s; }
+.aura i:nth-child(2) { width: 38vw; height: 38vw; right: -10vw; top: 32vh;
+                       background: rgba(242,186,36,.20); animation-duration: 38s;
+                       animation-direction: alternate-reverse; }
+.aura i:nth-child(3) { width: 30vw; height: 30vw; left: 24vw; bottom: -12vh;
+                       background: rgba(30,46,85,.22); animation-duration: 34s;
+                       animation-delay: -8s; }
+
+/* Grano: le quita el plano digital al degradado. Sobre fondos claros con
+   `overlay` se nota apenas; es lo que se busca. */
+.grano {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .13; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23r)' opacity='.5'/></svg>");
+}
+
+/* --- La marca, enorme y al fondo ----------------------------------------- */
+.fantasma {
+  position: absolute; right: -6vw; top: -7vh;
+  font-family: var(--fuente-titulo); font-weight: 800; font-size: 28vw;
+  line-height: .8; letter-spacing: -.04em;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(242,186,36,.16);
+  white-space: nowrap; user-select: none; pointer-events: none; z-index: 0;
+}
+@media (max-width: 760px) { .fantasma { font-size: 56vw; right: -22vw; top: -2vh; } }
+
+/* --- Aparición al deslizar ------------------------------------------------ */
+/* Se anima `translate`, no `transform`: son propiedades distintas y se
+   componen. Con `transform` el estado final (`none`) le ganaba por
+   especificidad a los :hover de las tarjetas y les mataba el movimiento. */
+.js .rv { opacity: 0; translate: 0 26px; will-change: opacity, translate; }
+.js .rv.in { opacity: 1; translate: 0 0; will-change: auto;
+             transition: opacity .7s cubic-bezier(.22,1,.36,1), translate .7s cubic-bezier(.22,1,.36,1); }
+
+.js .esc > * { opacity: 0; translate: 0 18px; }
+.js .esc.in > * { opacity: 1; translate: 0 0;
+                  transition: opacity .6s cubic-bezier(.22,1,.36,1), translate .6s cubic-bezier(.22,1,.36,1); }
+/* La escalera: cada hijo entra 70 ms después del anterior. Se corta en el
+   octavo para que una grilla larga no termine tardando tres segundos. */
+.js .esc.in > *:nth-child(1) { transition-delay: 0ms; }
+.js .esc.in > *:nth-child(2) { transition-delay: 70ms; }
+.js .esc.in > *:nth-child(3) { transition-delay: 140ms; }
+.js .esc.in > *:nth-child(4) { transition-delay: 210ms; }
+.js .esc.in > *:nth-child(5) { transition-delay: 280ms; }
+.js .esc.in > *:nth-child(6) { transition-delay: 350ms; }
+.js .esc.in > *:nth-child(7) { transition-delay: 420ms; }
+.js .esc.in > *:nth-child(n+8) { transition-delay: 490ms; }
+
+/* El celular no es el escritorio angosto: ahí se desliza mucho más rápido y
+   el mismo ritmo se percibe como lentitud. Se comprimen los tiempos y se
+   acortan los recorridos, solo en táctil. */
+@media (hover: none) {
+  .js .rv { translate: 0 16px; }
+  .js .esc > * { translate: 0 12px; }
+  .js .rv.in { transition-duration: .42s, .42s; }
+  .js .esc.in > * { transition-duration: .36s, .36s; }
+  .js .esc.in > *:nth-child(2) { transition-delay: 30ms; }
+  .js .esc.in > *:nth-child(3) { transition-delay: 60ms; }
+  .js .esc.in > *:nth-child(4) { transition-delay: 90ms; }
+  .js .esc.in > *:nth-child(5) { transition-delay: 120ms; }
+  .js .esc.in > *:nth-child(6) { transition-delay: 150ms; }
+  .js .esc.in > *:nth-child(7) { transition-delay: 180ms; }
+  .js .esc.in > *:nth-child(n+8) { transition-delay: 210ms; }
+}
+
+/* --- La sección que estás leyendo se enciende ----------------------------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seccion { position: relative; isolation: isolate; }
+    .seccion::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(54% 38% at 50% 44%, rgba(242,186,36,.09), transparent 72%);
+      opacity: 0;
+      animation: gm-viva;                 /* el shorthand primero... */
+      animation-timeline: view();         /* ...y el timeline después */
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-range: cover 12% cover 88%;
+    }
+    .seccion--navy::before {
+      background: radial-gradient(54% 38% at 50% 44%, rgba(242,186,36,.14), transparent 72%);
+    }
+  }
+}
+
+/* --- Hover: las cosas se iluminan -----------------------------------------
+   TODO va dentro de (hover:hover). En una pantalla táctil el navegador aplica
+   el :hover al tocar y nunca recibe el «el puntero salió»: el efecto se queda
+   pegado después del toque. Y peor: un elemento que se hunde al presionarlo
+   promete una acción. Si no la cumple, la persona deja de creerle al resto de
+   la página. Por eso las tarjetas que no llevan a ningún lado —los caminos,
+   los premios— no reaccionan al dedo. Solo lo hacen los enlaces reales. */
+.servicio { position: relative; overflow: hidden; }
+.servicio::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit; opacity: 0;
+  box-shadow: inset 0 0 0 1px rgba(242,186,36,.55);
+  transition: opacity var(--transicion);
+}
+.servicio__icono { transition: background var(--transicion), color var(--transicion); }
+.camino__num { transition: color var(--transicion); }
+.ficha__item svg { transition: transform var(--transicion); }
+
+@media (hover: hover) {
+  .servicio { transition: transform var(--transicion), box-shadow var(--transicion); }
+  .servicio:hover::after { opacity: 1; }
+  .servicio:hover .servicio__icono { background: var(--amarillo); color: var(--navy); }
+  .servicio:hover .enlace-wa { color: var(--navy); border-bottom-color: var(--amarillo); }
+
+  .camino { transition: transform var(--transicion), box-shadow var(--transicion), border-top-color var(--transicion); }
+  .camino:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+  .camino:hover .camino__num { color: var(--navy); }
+
+  .premio { transition: border-color var(--transicion), background var(--transicion), transform var(--transicion); }
+  .premio:hover { transform: translateY(-3px); }
+
+  .muestra li { transition: border-color var(--transicion), background var(--transicion), transform var(--transicion); }
+  .ficha__item:hover svg { transform: scale(1.15); }
+}
+
+/* En táctil, solo lo accionable responde: se comprime en vez de levantarse,
+   que es la física de algo presionado por un dedo. */
+@media (hover: none) {
+  .boton, .enlace-wa, .wa-flotante, .muestra__mas a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .boton:active, .wa-flotante:active { transform: scale(.972); }
+  .servicio .enlace-wa:active { opacity: .7; }
+}
+
+/* Destello que barre el botón principal. Se apaga al pasar el cursor para no
+   competir con el propio hover. */
+.boton--wa { position: relative; overflow: hidden; }
+.boton--wa::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-140%);
+  animation: gm-destello 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* --- Todo lo anterior se apaga si el sistema pide menos movimiento -------
+   Va al final y con !important a propósito: tiene que ganarle a cualquier
+   regla de arriba, incluidas las de dentro de @supports. Lo que se anima
+   queda visible y quieto, nunca invisible. */
+@media (prefers-reduced-motion: reduce) {
+  .js .rv, .js .rv.in, .js .esc > *, .js .esc.in > * {
+    opacity: 1 !important; translate: none !important; transform: none !important;
+    transition: none !important; animation: none !important; will-change: auto !important;
+  }
+  .aura, .grano, .avance, .fantasma { display: none !important; }
+  .seccion::before { animation: none !important; opacity: 0 !important; }
+  .boton--wa::after { display: none !important; }
+  .aura i { animation: none !important; }
+}
+@media print {
+  .aura, .grano, .avance, .fantasma { display: none !important; }
+  /* Estas dos faltaban y se imprimían: un halo radial amarillo sobre dos
+     secciones y una banda diagonal congelada cruzando el botón. */
+  .seccion::before { display: none !important; }
+  .boton--wa::after { display: none !important; }
+  .js .rv, .js .esc > * { opacity: 1 !important; translate: none !important; transform: none !important; }
+}
+
+/* --- Adelanto de puntos en la portada ------------------------------------ */
+.adelanto { display: grid; gap: clamp(2rem, 4vw, 3.4rem); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .adelanto { grid-template-columns: 1.08fr .92fr; } }
+.adelanto__texto .regla-puntos { margin-top: 1.8rem; }
+
+.muestra { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.muestra li {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding: .9rem 1.2rem;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.13); border-radius: var(--radio);
+  transition: border-color var(--transicion), background var(--transicion), transform var(--transicion);
+}
+.muestra__p {
+  font-family: var(--fuente-dato); font-weight: 700; font-size: 1.55rem;
+  color: var(--amarillo); min-width: 3.6ch; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.muestra__n { color: #DCE3F2; font-size: 1rem; }
+.muestra__mas { background: none; border-style: dashed; justify-content: center; }
+.muestra__mas a { color: var(--amarillo); text-decoration: none; font-weight: 600; font-size: .97rem; }
+
+/* --- Portada de la página de puntos -------------------------------------- */
+.hero--puntos { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.hero__grid--puntos { grid-template-columns: 1fr; }
+@media (min-width: 980px) { .hero__grid--puntos { grid-template-columns: minmax(0, 46rem); } }
+.hero--puntos .regla-puntos { margin-top: 1.8rem; }
+
+.miga {
+  font-family: var(--fuente-dato); font-size: .9rem; letter-spacing: .1em;
+  text-transform: uppercase; color: #9DA9C4; margin-bottom: 1.6rem;
+}
+.miga a { color: var(--amarillo); text-decoration: none; }
+.miga span { margin: 0 .5rem; }
+
+/* La página de puntos abre con secciones claras: el índice de la barra
+   necesita contraste sobre ambas. */
+.hero--puntos .hero__bajada { max-width: 52ch; }
+
+/* La marca de fondo es más alta que su sección a propósito; sin recortarla se
+   derrama sobre la sección de arriba y se lee como un error de maquetación. */
+.seccion--marca { overflow: hidden; isolation: isolate; }
+.seccion--marca > .contenedor { position: relative; z-index: 1; }
+
+/* En el hero la marca asoma por arriba; dentro de una sección tiene que caer
+   en el cuerpo, o el recorte se la come entera y el efecto se paga sin verse. */
+.seccion--marca > .fantasma {
+  top: auto; bottom: -12%; right: -10vw;
+  font-size: 22vw;
+  -webkit-text-stroke-color: rgba(242,186,36,.20);
+}
+@media (max-width: 760px) {
+  .seccion--marca > .fantasma { font-size: 44vw; right: -20vw; bottom: -6%; }
+}
+
+/* --- Todos los :hover sueltos, acotados a puntero real -------------------
+   En una pantalla táctil el navegador aplica el :hover al tocar y nunca
+   recibe el «el puntero salió»: el efecto se queda pegado después del
+   toque. Y en `.muestra li` ese borde amarillo significa «lo alcanzas»,
+   así que dejarlo pegado no era un artefacto visual: era un dato falso. */
+@media (hover: hover) {
+  .boton:hover  { transform: translateY(-2px); }
+  .boton--wa:hover{ background: var(--amarillo-osc); box-shadow: var(--sombra-alta); }
+  .boton--linea:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .boton--navy:hover { background: var(--azul); }
+  .nav a:hover { color: var(--amarillo); border-bottom-color: var(--amarillo); }
+  .servicio:hover { transform: translateY(-3px); box-shadow: var(--sombra-alta); }
+  .servicio .enlace-wa:hover { color: var(--navy); border-bottom-color: var(--amarillo); }
+  .tab:hover { color: var(--blanco); border-color: rgba(255,255,255,.5); }
+  .premio:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); }
+  .reel:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+  .tarjeta-contacto__tel:hover { color: var(--azul); }
+  .pie a:hover { color: var(--amarillo); }
+  .wa-flotante:hover { transform: scale(1.08); }
+  .muestra li:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); transform: translateX(4px); }
+  .miga a:hover { text-decoration: underline; }
+  .boton--wa:hover::after { animation-play-state: paused; }
+}
+
+
+/* --- El nombre de la marca, con las letras de su propio logo --------------
+   No es una fuente parecida: son los trazos del logotipo del cliente,
+   extraídos de su vector y compuestos en una línea. Por eso va como imagen y
+   no como texto — y por eso el `alt` tiene que decir exactamente «Grifos
+   Mori», que es lo que lee quien no ve la imagen. */
+.marca-logo {
+  display: inline-block;      /* la regla global pone los img en block */
+  height: .74em; width: auto; /* al alto de las mayúsculas del titular */
+  max-width: 100%;
+  vertical-align: baseline;
+  position: relative; top: .045em;   /* ajuste óptico contra la línea base */
+  margin-inline: .1em;
+}
+
+/* --- La acción de la sección de flotas ------------------------------------
+   Sin tarjeta ni datos repetidos: el teléfono y el horario ya están en la
+   ficha de ubicación, y ahí la sección pedía UNA cosa. Queda solo eso. */
+.flota__accion { display: flex; justify-content: center; }
+.flota__accion .boton { font-size: 1.06rem; padding: 1.1rem 2.2rem; }
+@media (max-width: 899px) { .flota__accion { justify-content: flex-start; } }

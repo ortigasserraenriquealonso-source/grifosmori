@@ -1,0 +1,56 @@
+name: Actualizar precios de combustible
+
+on:
+  schedule:
+    # Lima es UTC-5, así que estas horas UTC son 10:00, 14:00 y 18:00 de Lima.
+    # GitHub no garantiza la puntualidad del cron: en horas cargadas puede
+    # retrasarse entre 5 y 30 minutos. Por eso la web muestra SIEMPRE la hora
+    # real de la última lectura en vez de prometer un horario fijo.
+    - cron: "0 15 * * *"
+    - cron: "0 19 * * *"
+    - cron: "0 23 * * *"
+  workflow_dispatch:      # botón para forzar una actualización a mano
+
+permissions:
+  contents: write
+
+concurrency:
+  group: precios
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Leer Facilito
+        # Sin dependencias: el scraper usa solo la librería estándar.
+        # Si Facilito falla, el paso sale en rojo y GitHub avisa por correo.
+        run: python3 scraper/facilito.py
+
+      - name: Publicar si cambió
+        run: |
+          # Se publica SIEMPRE, aunque el precio no haya cambiado: la marca de
+          # tiempo es lo que mantiene viva la web. Si no se subiera, a las 48 h
+          # la página escondería precios que en realidad siguen vigentes.
+          # Son unas 1 100 publicaciones al año, cada una de pocos cientos de
+          # bytes; el mensaje del commit dice si el precio cambió o no.
+          if [ -z "$(git status --porcelain sitio/precios.json datos/historico.jsonl)" ]; then
+            echo "Nada que publicar (el scraper no escribió)."
+            exit 0
+          fi
+          if grep -q '"cambio_en_esta_lectura": true' sitio/precios.json; then
+            ETIQUETA="precio nuevo"
+          else
+            ETIQUETA="sin cambio"
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitio/precios.json datos/historico.jsonl
+          git commit -m "precios ($ETIQUETA): $(TZ=America/Lima date '+%d/%m/%Y %H:%M') Lima"
+          git push || { git pull --rebase && git push; }

@@ -1,0 +1,25 @@
+{
+  "_como_se_llena": "Un objeto por publicación. 'portada' es una imagen PROPIA guardada en assets/reels/: se descarga una vez y se guarda, NUNCA se enlaza al CDN de Instagram, porque esas URLs vienen firmadas y caducan en horas. Para obtenerla: curl a la URL del reel con -A 'facebookexternalhit/1.1' y leer el og:image (con un agente de navegador normal, Instagram sirve la aplicación sin metadatos). Recortar a 9:16.",
+  "reels": [
+    {
+      "url": "https://www.instagram.com/reel/DVUKtOJkZEl/",
+      "portada": "assets/reels/DVUKtOJkZEl.jpg",
+      "texto": "Más de 30 años contigo"
+    },
+    {
+      "url": "https://www.instagram.com/reel/DPomTfxDggl/",
+      "portada": "assets/reels/DPomTfxDggl.jpg",
+      "texto": "Tú eliges cómo ganar: descuento, puntos u oferta"
+    },
+    {
+      "url": "https://www.instagram.com/reel/DRBFOhaDCPG/",
+      "portada": "assets/reels/DRBFOhaDCPG.jpg",
+      "texto": "Cada carga suma puntos que puedes canjear"
+    },
+    {
+      "url": "https://www.instagram.com/reel/DRVzoR9jCe1/",
+      "portada": "assets/reels/DRVzoR9jCe1.jpg",
+      "texto": "Juan Carlos, cliente hace más de 10 años"
+    }
+  ]
+}

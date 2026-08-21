@@ -1,0 +1,35 @@
+name: Publicar el sitio
+
+# Cada push a main publica. Incluye los commits del robot de precios, así que
+# una lectura nueva de Facilito llega sola a la web sin que nadie intervenga.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si entran dos publicaciones juntas, gana la última y la anterior se cancela:
+# publicar una versión vieja encima de una nueva sería peor que perder tiempo.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # Solo sitio/: el scraper, el histórico y el README no se publican.
+          path: sitio
+      - id: deploy
+        uses: actions/deploy-pages@v4

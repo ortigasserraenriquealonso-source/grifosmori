@@ -1,0 +1,23 @@
+# Archivo intermedio de la escritura atómica del scraper. Si aparece, es que
+# un proceso murió a mitad de camino; nunca debe publicarse.
+sitio/precios.json.tmp
+
+# Basura del sistema
+.DS_Store
+__pycache__/
+*.pyc
+
+# ─── Fuera del repositorio, que es PÚBLICO ─────────────────────────────────
+# Este repo es público porque GitHub Pages lo exige para publicar gratis. Lo
+# de abajo no puede salir de la agencia:
+#
+#  · LEER-PRIMERO.md — documentación interna: datos del cliente, el nombre de
+#    la persona de cotizaciones (que él pidió no publicar), la razón social y
+#    el RUC de la empresa hermana del transporte, y los pendientes del encargo.
+#  · marca/ — el manual de marca, la colorimetría y el logo vectorial son
+#    propiedad del cliente. Se usan para producir el sitio; no se redistribuyen.
+#
+# Viven en ~/Documents/Claude/Claude-Trabajo/WaveStudio/web-grifosmori/, que
+# entra en el respaldo de la carpeta de la agencia.
+LEER-PRIMERO.md
+marca/
