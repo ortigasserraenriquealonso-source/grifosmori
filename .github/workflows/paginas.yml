@@ -6,6 +6,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Lo invoca precios.yml después de escribir una lectura nueva. Hace falta
+  # porque GitHub NO dispara workflows con los push que hace un workflow: es una
+  # protección contra bucles infinitos. Sin esto, el robot actualizaría el
+  # precio en el repositorio y la web nunca lo mostraría — y nada saldría en
+  # rojo, que es lo que lo hace peligroso.
+  workflow_call:
 
 permissions:
   contents: read

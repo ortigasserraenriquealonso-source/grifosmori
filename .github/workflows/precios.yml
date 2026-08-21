@@ -54,3 +54,13 @@ jobs:
           git add sitio/precios.json datos/historico.jsonl
           git commit -m "precios ($ETIQUETA): $(TZ=America/Lima date '+%d/%m/%Y %H:%M') Lima"
           git push || { git pull --rebase && git push; }
+
+  # Publicar el sitio con la lectura nueva. Se invoca el workflow de publicación
+  # en vez de confiar en que el push de arriba lo dispare, porque no lo hace.
+  publicar:
+    needs: actualizar
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/paginas.yml
