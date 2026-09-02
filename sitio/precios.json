@@ -1,9 +1,9 @@
 {
-  "actualizado_utc": "2026-09-02T00:57:36+00:00",
-  "actualizado_lima": "01/09/2026 19:57",
-  "precios_desde": "2026-08-22T15:24:54+00:00",
-  "precios_desde_lima": "22/08/2026",
-  "cambio_en_esta_lectura": false,
+  "actualizado_utc": "2026-09-02T18:29:14+00:00",
+  "actualizado_lima": "02/09/2026 13:29",
+  "precios_desde": "2026-09-02T18:29:14+00:00",
+  "precios_desde_lima": "02/09/2026",
+  "cambio_en_esta_lectura": true,
   "fuente": "Facilito — Osinergmin",
   "fuente_url": "https://www.facilito.gob.pe",
   "codigo_osinergmin": "7675",
@@ -13,19 +13,19 @@
     {
       "producto": "Diésel B5 S-50 UV",
       "oficial": "Diesel B5 S-50 UV",
-      "precio": 23.79,
+      "precio": 24.89,
       "estrella": true
     },
     {
       "producto": "Gasohol Premium",
       "oficial": "GASOHOL PREMIUM",
-      "precio": 21.7,
+      "precio": 22.99,
       "estrella": false
     },
     {
       "producto": "Gasohol Regular",
       "oficial": "GASOHOL REGULAR",
-      "precio": 20.6,
+      "precio": 20.95,
       "estrella": false
     }
   ]
