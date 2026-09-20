@@ -1,9 +1,9 @@
 {
-  "actualizado_utc": "2026-09-20T00:55:51+00:00",
-  "actualizado_lima": "19/09/2026 19:55",
-  "precios_desde": "2026-09-16T21:47:09+00:00",
-  "precios_desde_lima": "16/09/2026",
-  "cambio_en_esta_lectura": false,
+  "actualizado_utc": "2026-09-20T18:06:49+00:00",
+  "actualizado_lima": "20/09/2026 13:06",
+  "precios_desde": "2026-09-20T18:06:49+00:00",
+  "precios_desde_lima": "20/09/2026",
+  "cambio_en_esta_lectura": true,
   "fuente": "Facilito — Osinergmin",
   "fuente_url": "https://www.facilito.gob.pe",
   "codigo_osinergmin": "7675",
@@ -25,7 +25,7 @@
     {
       "producto": "Gasohol Regular",
       "oficial": "GASOHOL REGULAR",
-      "precio": 22.77,
+      "precio": 22.79,
       "estrella": false
     }
   ]
