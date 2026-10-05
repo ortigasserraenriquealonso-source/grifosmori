@@ -32,6 +32,14 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # La punta de main, NO github.sha. Cuando precios.yml invoca este
+          # workflow, github.sha es el commit que disparó la corrida — es decir
+          # el ANTERIOR a la lectura que el robot acaba de escribir y pushear.
+          # Sin este ref el deploy salía verde publicando la lectura pasada y
+          # la web iba permanentemente una lectura atrasada (probado el
+          # 05/10/2026: el run con la lectura de las 20:47 publicó la de 17:03).
+          ref: main
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -21,3 +21,8 @@ __pycache__/
 # entra en el respaldo de la carpeta de la agencia.
 LEER-PRIMERO.md
 marca/
+
+# Internos: el repositorio es público.
+AGENTS.md
+CLAUDE.md
+docs/

@@ -2,13 +2,23 @@ name: Actualizar precios de combustible
 
 on:
   schedule:
-    # Lima es UTC-5, así que estas horas UTC son 10:00, 14:00 y 18:00 de Lima.
-    # GitHub no garantiza la puntualidad del cron: en horas cargadas puede
-    # retrasarse entre 5 y 30 minutos. Por eso la web muestra SIEMPRE la hora
-    # real de la última lectura en vez de prometer un horario fijo.
-    - cron: "0 15 * * *"
-    - cron: "0 19 * * *"
-    - cron: "0 23 * * *"
+    # Cada hora, de 8:00 a 21:00 de Lima (Lima es UTC-5).
+    #
+    # Antes eran tres lecturas al día (10:00, 14:00 y 18:00). No alcanzó: el
+    # cron de GitHub no es un reloj, es una cola de baja prioridad, y en un
+    # repositorio público gratuito llegaba con ~3 h 30 de retraso o no llegaba
+    # del todo. El 05/10/2026 no corrió NINGUNA de las tres y la web mostró el
+    # precio del día anterior durante 19 horas, sin ponerse en rojo: una
+    # lectura retrasada se ve igual que una lectura puntual.
+    #
+    # La frecuencia no es para leer más: el precio cambia una o dos veces por
+    # semana. Es redundancia — si GitHub descarta una corrida, la siguiente
+    # entra en una hora y no al día siguiente.
+    #
+    # El minuto 23 es deliberado: el minuto 0 es el más congestionado de la
+    # cola de GitHub y es justo donde se acumulaba el retraso.
+    - cron: "23 13-23 * * *"
+    - cron: "23 0-2 * * *"
   workflow_dispatch:      # botón para forzar una actualización a mano
 
 permissions:
