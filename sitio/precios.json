@@ -1,6 +1,6 @@
 {
-  "actualizado_utc": "2026-10-09T18:51:56+00:00",
-  "actualizado_lima": "09/10/2026 13:51",
+  "actualizado_utc": "2026-10-09T23:19:17+00:00",
+  "actualizado_lima": "09/10/2026 18:19",
   "precios_desde": "2026-10-08T19:19:18+00:00",
   "precios_desde_lima": "08/10/2026",
   "cambio_en_esta_lectura": false,
@@ -8,7 +8,7 @@
   "fuente_url": "https://www.facilito.gob.pe",
   "codigo_osinergmin": "7675",
   "establecimiento": "GRIFOS MORI S.A.C.",
-  "direccion": "CARRETERA PANAMERICANA NORTE KM. 783 - MOCCE (A LA ALTURA DEL OVALO BAYOVAR)",
+  "direccion": "CARRETERA PANAMERICANA NORTE KM. 783 - MOCCE (ALTURA DEL OVALO BAYOVAR)",
   "combustibles": [
     {
       "producto": "Diésel B5 S-50 UV",
