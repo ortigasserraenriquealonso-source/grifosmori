@@ -1,9 +1,9 @@
 {
-  "actualizado_utc": "2026-11-10T20:29:36+00:00",
-  "actualizado_lima": "10/11/2026 15:29",
+  "actualizado_utc": "2026-11-11T01:18:25+00:00",
+  "actualizado_lima": "10/11/2026 20:18",
   "precios_desde": "2026-11-10T20:29:36+00:00",
   "precios_desde_lima": "10/11/2026",
-  "cambio_en_esta_lectura": true,
+  "cambio_en_esta_lectura": false,
   "fuente": "Facilito — Osinergmin",
   "fuente_url": "https://www.facilito.gob.pe",
   "codigo_osinergmin": "7675",
