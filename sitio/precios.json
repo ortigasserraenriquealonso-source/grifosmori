@@ -1,9 +1,9 @@
 {
-  "actualizado_utc": "2026-11-26T08:35:43+00:00",
-  "actualizado_lima": "26/11/2026 03:35",
-  "precios_desde": "2026-11-24T01:00:23+00:00",
-  "precios_desde_lima": "23/11/2026",
-  "cambio_en_esta_lectura": false,
+  "actualizado_utc": "2026-11-26T22:25:42+00:00",
+  "actualizado_lima": "26/11/2026 17:25",
+  "precios_desde": "2026-11-26T22:25:42+00:00",
+  "precios_desde_lima": "26/11/2026",
+  "cambio_en_esta_lectura": true,
   "fuente": "Facilito — Osinergmin",
   "fuente_url": "https://www.facilito.gob.pe",
   "codigo_osinergmin": "7675",
@@ -13,7 +13,7 @@
     {
       "producto": "Diésel B5 S-50 UV",
       "oficial": "Diesel B5 S-50 UV",
-      "precio": 21.99,
+      "precio": 21.39,
       "estrella": true
     },
     {
